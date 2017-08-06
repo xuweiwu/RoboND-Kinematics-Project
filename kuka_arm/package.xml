@@ -70,6 +70,8 @@
   <run_depend>pluginlib</run_depend>
   <run_depend>robot_state_publisher</run_depend>
   <run_depend>xacro</run_depend>
+  <run_depend>python-numpy</run_depend>
+  <run_depend>python-sympy</run_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
