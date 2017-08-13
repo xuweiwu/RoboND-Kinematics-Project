@@ -182,7 +182,9 @@ T0_7 = [[R_EE, pos_EE],
   	```
   	![alt text][image2]
 
-  	
+  	The values of q2 and q3 can be obtained by using the laws of cosine according to the following diagram
+    
+    ![alt text][image3]
 
 - Inverse Orientation Problem
 
