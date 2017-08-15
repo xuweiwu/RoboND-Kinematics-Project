@@ -167,7 +167,7 @@ T0_7 = [[R_EE, pos_EE],
 
   - Calculate q1, q2, q3
   
-    From the simplified robot configuration showned below, the value of q1 can be directly caculated by
+    From the simplified robot configuration shown below, the value of q1 can be directly caculated by
     ```
     q1 = arctan2(wy, wx)
     ```
@@ -245,12 +245,24 @@ T0_7 = [[R_EE, pos_EE],
      q5 = arctan2(sq5, R3_6[1,2])
      q6 = arctan2(-R3_6[1,1], R3_6[1,0])
      ```
-     To get through the wrist singularity, one of q4 and q6 will be set to zero if q5 = 0.
+     To get through the wrist singularity, q4 will be set to zero if q5 is below a predefined limit. This part of code is learned from the function euler_from_matrix in transformation.py, line 1062 to 1080.
+     ```     
+     eps = finfo(float).eps * 4.0
+     sq5 = sqrt(R3_6[1,0]**2 + R3_6[1,1]**2)
+     if sq5 > eps:
+         q4 = arctan2(R3_6[2,2], -R3_6[0,2])
+         q5 = arctan2(sq5, R3_6[1,2])
+         q6 = arctan2(-R3_6[1,1], R3_6[1,0])
+     else:
+         q4 = arctan2(-R3_6[0,1], R3_6[0,0])
+         q5 = 0
+         q6 = 0
+     ```
      
 ### Project Implementation
 
 #### 1. Fill in the `IK_server.py` file with properly commented python code for calculating Inverse Kinematics based on previously performed Kinematic Analysis. Your code must guide the robot to successfully complete 8/10 pick and place cycles. Briefly discuss the code you implemented and your results. 
 
-In oder to improve the performance, the symbolic functions are replaced with numpy functions within `IK_server.py`, since only two symbolic expressions (R0_3 and R_gripper_corr) are actually needed during the online computations. The implemented code can lead to a completion of 10/10 pick and place cycles, as showned below
+The original In oder to improve the performance, the symbolic functions are replaced with numpy functions within `IK_server.py`, since only two symbolic expressions (R0_3 and R_gripper_corr) are actually needed during the online computations. The implemented code can lead to a completion of 10/10 pick and place cycles, as shown below
 
 ![alt text][image4]
